@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماشین حساب</title>
+    <!-- Manifest File -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Service Worker -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => console.log('Service Worker registered with scope:', registration.scope))
+                .catch(error => console.error('Service Worker registration failed:', error));
+        });
+    }
+</script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <h2 style="color: #34c759;">ماشین حساب به عنوان اپلیکیشن نصب شود؟</h2>
+            <p>این ماشین حساب به عنوان یک اپلیکیشن اندرویدی قابل نصب است. برای ادامه، روی دکمه نصب کلیک کنید.</p>
+            <button onclick="installPWA()">نصب اپلیکیشن</button>
+            <button onclick="closePopup()">لغو</button>
+        </div>
+    </div>
+    <div class="calculator">
+        <!-- Poem Box -->
+        <div class="poem-box">
+            <p style="color: #fff; font-size: 0.9em;">زینب عزیزم، این حساب رو با یه دنیا عشق برای تو درست کردم، چون لبخندت زندگی رو روشن‌تر می‌کنه. 🌟❤️</p>
+            <p style="color: #fff; font-size: 0.8em;">هر کجا آب روان، سبزه و باران پیداست 🌈<br>دل من در طلبت، کلبه احزان پیداست 💔🌿</p>
+        </div>
+        <!-- Combined Display Section -->
+        <div class="combined-display">
+            <div class="history" id="history"></div>
+            <div class="expression" id="expression">...</div>
+            <div class="display" id="display">0</div>
+        </div>
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button backspace" onclick="backspace()">←</button>
+            <button class="button percentage" onclick="applyPercentage()">%</button>
+            <button class="button operator" onclick="appendOperator('/')">÷</button>
+            <button class="button" onclick="appendNumber(7)">7</button>
+            <button class="button" onclick="appendNumber(8)">8</button>
+            <button class="button" onclick="appendNumber(9)">9</button>
+            <button class="button operator" onclick="appendOperator('*')">x</button>
+            <button class="button" onclick="appendNumber(4)">4</button>
+            <button class="button" onclick="appendNumber(5)">5</button>
+            <button class="button" onclick="appendNumber(6)">6</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button" onclick="appendNumber(1)">1</button>
+            <button class="button" onclick="appendNumber(2)">2</button>
+            <button class="button" onclick="appendNumber(3)">3</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+            <button class="button zero" onclick="appendNumber(0)">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+            <button class="button operator" onclick="toggleSign()">±</button>
+            <button class="button equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>

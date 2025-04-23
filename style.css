@@ -1,0 +1,209 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #222;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    direction: ltr;
+}
+
+.calculator {
+    background: #333;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 95vw; /* عرض نسبی به viewport */
+    max-width: 400px; /* حداکثر عرض */
+    margin: 0 auto;
+    overflow: hidden; /* جلوگیری از خروج دکمه‌ها از کادر */
+}
+
+.poem-box {
+    background: #444;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 1.1em; /* اندازه فونت بزرگ‌تر */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* سایه کم‌تر */
+}
+
+.combined-display {
+    background: #222;
+    color: white;
+    font-size: 1.4em; /* اندازه فونت بزرگ‌تر */
+    padding: 15px;
+    border-radius: 10px;
+    text-align: right;
+    margin-bottom: 15px;
+    height: auto;
+    overflow-y: auto;
+    max-height: 150px; /* حداکثر ارتفاع برای جلوگیری از کشیدگی */
+}
+
+.combined-display .history {
+    font-size: 1em; /* اندازه فونت بزرگ‌تر */
+    color: #aaa;
+    margin-bottom: 5px;
+    max-height: 100px; /* محدود کردن ارتفاع */
+    overflow-y: scroll; /* فعال کردن اسکرول عمودی */
+    display: block; /* اطمینان از نمایش بلاک */
+}
+
+.combined-display .expression {
+    font-size: 1.2em; /* اندازه فونت بزرگ‌تر */
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.combined-display .display {
+    font-size: 2.5em; /* اندازه فونت بزرگ‌تر */
+    color: white;
+    font-weight: bold;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; /* فاصله بین دکمه‌ها */
+}
+
+.button {
+    background: #eee;
+    border: none;
+    aspect-ratio: 1 / 1; /* نسبت طول و عرض دکمه‌ها */
+    font-size: calc(1.2em + 0.5vw); /* اندازه فونت بزرگ‌تر */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:hover {
+    background: #ddd;
+}
+
+.button.operator {
+    background: #ff9500;
+    color: white;
+}
+
+.button.operator:hover {
+    background: #e08900;
+}
+
+.button.equal {
+    background: #34c759;
+    color: white;
+    grid-column: span 4; /* دکمه مساوی چهار ستون را اشغال می‌کند */
+    border-radius: 10px;
+    aspect-ratio: unset; /* غیرفعال کردن نسبت طول و عرض */
+    height: 80px; /* ارتفاع ثابت برای دکمه مساوی */
+    font-size: calc(2em + 0.5vw); /* اندازه فونت بزرگ‌تر */
+    margin-bottom: 20px;
+}
+
+.button.equal:hover {
+    background: #2da94f;
+}
+
+.button.clear {
+    background: #ff3b30;
+    color: white;
+}
+
+.button.clear:hover {
+    background: #e63329;
+}
+
+.button.percentage {
+    background: #ff9500;
+    color: white;
+    border-radius: 50%;
+}
+
+.button.percentage:hover {
+    background: #e08900;
+}
+
+.button.backspace {
+    background: #ff3b30;
+    color: white;
+    border-radius: 50%;
+}
+
+.button.backspace:hover {
+    background: #e63329;
+}
+
+.button.zero {
+    grid-column: span 2;
+    border-radius: 10px;
+    aspect-ratio: 2 / 1; /* نسبت طول و عرض دکمه صفر */
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        padding: 15px;
+    }
+    .button {
+        font-size: calc(1em + 0.5vw); /* اندازه فونت کوچک‌تر برای صفحات کوچک */
+    }
+    .button.equal {
+        font-size: calc(1.8em + 0.5vw); /* اندازه فونت دکمه مساوی */
+    }
+}
+
+/* Custom Popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+}
+
+.popup-container h2 {
+    font-size: 1.4em; /* اندازه فونت بزرگ‌تر */
+    margin-bottom: 10px;
+}
+
+.popup-container p {
+    font-size: 1.1em; /* اندازه فونت بزرگ‌تر */
+    margin-bottom: 15px;
+}
+
+.popup-container button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #34c759;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em; /* اندازه فونت بزرگ‌تر */
+}
+
+.popup-container button:hover {
+    background-color: #2da94f;
+}
